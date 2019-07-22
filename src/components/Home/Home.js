@@ -13,6 +13,14 @@ class Home extends Component {
     };
   }
 
+  componentDidMount() {
+    store.subscribe(() => {
+      this.setState({
+        recipes: store.getState().recipes
+      })
+    })
+  }
+
   render() {
     const recipes = this.state.recipes.map((recipe, i) => {
       return (
@@ -24,6 +32,7 @@ class Home extends Component {
           authorLast={recipe.authorLast}
           ingredients={recipe.ingredients}
           instructions={recipe.instructions}
+          index={i}
         />
       );
     });

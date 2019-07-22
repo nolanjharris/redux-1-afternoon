@@ -17,6 +17,8 @@ export const UPDATE_AUTHOR_LAST = 'UPDATE_AUTHOR_LAST';
 export const UPDATE_INGREDIENTS = 'UPDATE_INGREDIENTS';
 export const UPDATE_INSTRUCTIONS = 'UPDATE_INSTRUCTIONS';
 export const UPDATE_RECIPES = 'UPDATE_RECIPES';
+export const CLEAR_FIELDS = 'CLEAR_FIELDS';
+export const DELETE_RECIPE = 'DELETE_RECIPE';
 
 function reducer(state = initialState, action) {
     switch (action.type) {
@@ -59,6 +61,23 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 recipes: newRecipes
+            }
+        case CLEAR_FIELDS:
+            return {
+                name: '',
+                category: '',
+                authorFirst: '',
+                authorLast: '',
+                ingredients: [],
+                instructions: [],
+                recipes: state.recipes
+            }
+        case DELETE_RECIPE:
+            const updatedRecipes = state.recipes;
+            updatedRecipes.splice(action.payload, 1);
+            return {
+                ...state,
+                recipes: updatedRecipes
             }
         default: return state;
     }
